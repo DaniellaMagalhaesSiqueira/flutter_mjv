@@ -55,7 +55,7 @@ class AbaPerfil extends StatelessWidget {
               ],
             ),
             const SpacerComponent(),
-            const Divider(),
+            const SpacerComponent(isFull: true, isHorizontal: true),
             const SpacerComponent(isHorizontal: true, size: 8),
             const Text(
               'Configurações',
