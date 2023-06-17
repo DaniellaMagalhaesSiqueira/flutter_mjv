@@ -92,32 +92,14 @@ class _AbaAfazeres extends State<AbaAfazeres> {
             itemCount: _listaAfazeres.length,
             itemBuilder: (context, index) {
               final item = _listaAfazeres.elementAt(index);
-              return Card(
-                child: Padding(
-                    padding: const EdgeInsets.all(16),
-                    child: Row(
-                      children: [
-                        Icon(
-                            item.isConcluido == true
-                                ? Icons.done_all
-                                : Icons.done,
-                            color: item.isConcluido == true
-                                ? Colors.green
-                                : Colors.black),
-                        Text(item.titulo),
-                        const SpacerComponent(
-                          isHorizontal: true,
-                          isFull: true,
-                        ),
-                        IconButtonComponent(
-                          icon: Icons.arrow_forward_ios, 
-                          onPressed: () {
-                           handlerExcluir(index);
-                        },
-                        ),
-                      ],
-                    )),
-              );
+              return Dismissible(
+                  key: Key(item.uuid),
+                  child: Text(item.titulo),
+                  onDismissed: (direction) {
+                    if (direction == DismissDirection.startToEnd) {
+                      handlerExcluir(index);
+                    }
+                  });
             },
           ),
         ),
