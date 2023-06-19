@@ -1,7 +1,6 @@
 import 'package:app1/components/icon_button_component.dart';
 import 'package:app1/components/spacer_component.dart';
 import 'package:app1/entities/afazer_entity.dart';
-import 'package:app1/pages/home/components/item_widget.dart';
 import 'package:flutter/material.dart';
 import '../../../entities/teste_entity.dart';
 
@@ -29,7 +28,7 @@ class _AbaAfazeres extends State<AbaAfazeres> {
     }
   }
 
-  void handleAdicionar() {
+  void handlerAdicionar() {
     final item = AfazeresEntity(
       uuid: 'teste3',
       titulo: 'Teste 3',
@@ -45,7 +44,7 @@ class _AbaAfazeres extends State<AbaAfazeres> {
     });
   }
 
-  void handleExcluir(int index) {
+  void handlerExcluir(int index) {
     _listaAfazeres.removeAt(index);
 
     setState(() {
@@ -83,20 +82,24 @@ class _AbaAfazeres extends State<AbaAfazeres> {
       children: [
         const SpacerComponent(),
         ElevatedButton(
-          onPressed: handleAdicionar,
+          onPressed: handlerAdicionar,
           child: const Text('Adicionar'),
         ),
-        SizedBox(
+       SizedBox(
           width: MediaQuery.of(context).size.width,
           height: 400,
           child: ListView.builder(
             itemCount: _listaAfazeres.length,
             itemBuilder: (context, index) {
               final item = _listaAfazeres.elementAt(index);
-              return ItemWidget(item: item,
-                onPressed: () {
-                  handleAdicionar();
+              return Dismissible(
+                key: Key(item.uuid),
+                onDismissed: (direction) {
+                  if (direction == DismissDirection.startToEnd) {
+                    handlerExcluir(index);
+                  }
                 },
+                child: Text(item.titulo),
               );
             },
           ),
