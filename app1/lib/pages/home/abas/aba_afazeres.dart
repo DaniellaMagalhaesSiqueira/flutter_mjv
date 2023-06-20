@@ -1,7 +1,7 @@
-import 'package:app1/components/icon_button_component.dart';
 import 'package:app1/components/spacer_component.dart';
 import 'package:app1/entities/afazer_entity.dart';
 import 'package:app1/pages/home/components/item_widget.dart';
+import 'package:app1/pages/home/components/novo_item_widget.dart';
 import 'package:flutter/material.dart';
 import '../../../entities/teste_entity.dart';
 
@@ -30,19 +30,21 @@ class _AbaAfazeres extends State<AbaAfazeres> {
   }
 
   void handleAdicionar() {
-    final item = AfazeresEntity(
-      uuid: 'teste3',
-      titulo: 'Teste 3',
-      dataInicio: DateTime.now(),
-      dataFim: DateTime.now(),
-      isConcluido: false,
+    showDialog(
+      context: context,
+      builder: (context) {
+        return SimpleDialog(
+          contentPadding: const EdgeInsets.all(16),
+          children:  [
+           NovoItemWidget(callback: (item) {
+                _listaAfazeres.add(item);
+              setState(() {
+                _listaAfazeres = _listaAfazeres;
+              });
+           },),
+        ],);
+      },
     );
-
-    _listaAfazeres.add(item);
-
-    setState(() {
-      _listaAfazeres = _listaAfazeres;
-    });
   }
 
   void handleExcluir(int index) {
@@ -93,7 +95,8 @@ class _AbaAfazeres extends State<AbaAfazeres> {
             itemCount: _listaAfazeres.length,
             itemBuilder: (context, index) {
               final item = _listaAfazeres.elementAt(index);
-              return ItemWidget(item: item,
+              return ItemWidget(
+                item: item,
                 onPressed: () {
                   handleAdicionar();
                 },
