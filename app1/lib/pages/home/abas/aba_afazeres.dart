@@ -2,8 +2,11 @@ import 'package:app1/components/spacer_component.dart';
 import 'package:app1/entities/afazer_entity.dart';
 import 'package:app1/pages/home/components/item_widget.dart';
 import 'package:app1/pages/home/components/novo_item_widget.dart';
+import 'package:app1/providers/afazer_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../../../entities/teste_entity.dart';
+
 
 class AbaAfazeres extends StatefulWidget {
   final int valorInicial;
@@ -19,7 +22,9 @@ class AbaAfazeres extends StatefulWidget {
 }
 
 class _AbaAfazeres extends State<AbaAfazeres> {
-  late List<AfazeresEntity> _listaAfazeres;
+
+  late AfazerProvider store;
+
   late int acumulador;
   late TesteEntity teste;
 
@@ -37,50 +42,57 @@ class _AbaAfazeres extends State<AbaAfazeres> {
           contentPadding: const EdgeInsets.all(16),
           children:  [
            NovoItemWidget(callback: (item) {
-                _listaAfazeres.add(item);
-              setState(() {
-                _listaAfazeres = _listaAfazeres;
-              });
+              store.listaAfazeres = [...store.listaAfazeres, item];
+                // _listaAfazeres.add(item);
+              // setState(() {
+              //   _listaAfazeres = _listaAfazeres;
+              // });
            },),
         ],);
       },
     );
   }
 
-  void handleExcluir(int index) {
-    _listaAfazeres.removeAt(index);
+  // void handleExcluir(int index) {
+  //   _listaAfazeres.removeAt(index);
 
-    setState(() {
-      _listaAfazeres = _listaAfazeres;
-    });
-  }
+  //   setState(() {
+  //     _listaAfazeres = _listaAfazeres;
+  //   });
+  // }
 
   @override
   void initState() {
-    _listaAfazeres = [
-      AfazeresEntity(
-        uuid: 'teste1',
-        titulo: 'Teste 1',
-        dataInicio: DateTime.now(),
-        dataFim: DateTime.now(),
-        isConcluido: false,
-      ),
-      AfazeresEntity(
-        uuid: 'teste2',
-        titulo: 'Teste 2',
-        dataInicio: DateTime.now(),
-        dataFim: DateTime.now(),
-        isConcluido: true,
-      ),
-    ];
+    // _listaAfazeres = [
+    //   AfazeresEntity(
+    //     uuid: 'teste1',
+    //     titulo: 'Teste 1',
+    //     dataInicio: DateTime.now(),
+    //     dataFim: DateTime.now(),
+    //     isConcluido: false,
+    //   ),
+    //   AfazeresEntity(
+    //     uuid: 'teste2',
+    //     titulo: 'Teste 2',
+    //     dataInicio: DateTime.now(),
+    //     dataFim: DateTime.now(),
+    //     isConcluido: true,
+    //   ),
+    // ];
+
     super.initState();
   }
 
   //  buscarDados() async {
   //   await service.fectch();
   // }
+
+
+
+
   @override
   Widget build(BuildContext context) {
+    store = Provider.of<AfazerProvider>(context);
     return Column(
       children: [
         const SpacerComponent(),
@@ -92,9 +104,9 @@ class _AbaAfazeres extends State<AbaAfazeres> {
           width: MediaQuery.of(context).size.width,
           height: 400,
           child: ListView.builder(
-            itemCount: _listaAfazeres.length,
+            itemCount: store.listaAfazeres.length,
             itemBuilder: (context, index) {
-              final item = _listaAfazeres.elementAt(index);
+              final item = store.listaAfazeres.elementAt(index);
               return ItemWidget(
                 item: item,
                 onPressed: () {

@@ -3,6 +3,7 @@ import 'package:app1/components/spacer_component.dart';
 import 'package:app1/entities/afazer_checklist_entity.dart';
 import 'package:app1/entities/afazer_entity.dart';
 import 'package:flutter/material.dart';
+import 'package:uuid/uuid.dart';
 
 class NovoItemWidget extends StatefulWidget {
   final void Function(AfazeresEntity item) callback;
@@ -47,7 +48,7 @@ class _NovoItemWidgetState extends State<NovoItemWidget> {
     final isValido = _formKey.currentState!.validate();
     if (isValido) {
       final item = AfazeresEntity(
-        uuid: 'xpto',
+        uuid: const Uuid().v4(),
         titulo: _titleController.text,
         dataFim: DateTime.now(),
         dataInicio: DateTime.now(),
