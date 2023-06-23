@@ -31,7 +31,6 @@ class AfazeresEntity{
       isConcluido: json['isConcluido'],
       conteudos: AfazeresChecklistEntity.fromJsonList(json['conteudos']),
       image: json['image'],
-
     );
   }
 
@@ -49,5 +48,10 @@ class AfazeresEntity{
 
   static List<AfazeresEntity> fromJsonList(List<dynamic>? json){
     return json?.map((item) => AfazeresEntity.fromJson(item)).toList() ?? [];
+  }
+
+  static List<Map<String, dynamic>> toJsonList(List<AfazeresEntity> itens){
+    List<Map<String, dynamic>> lista = itens.map((item) => item.toJson()).toList() ?? [];
+    return lista;
   }
 }

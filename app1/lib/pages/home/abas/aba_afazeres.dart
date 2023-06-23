@@ -1,16 +1,19 @@
 import 'package:app1/components/spacer_component.dart';
-import 'package:app1/entities/afazer_entity.dart';
 import 'package:app1/pages/home/components/item_widget.dart';
 import 'package:app1/pages/home/components/novo_item_widget.dart';
 import 'package:app1/providers/afazer_provider.dart';
+import 'package:app1/services/afazer_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import '../../../entities/afazer_entity.dart';
 import '../../../entities/teste_entity.dart';
 
 
 class AbaAfazeres extends StatefulWidget {
   final int valorInicial;
   final void Function(int tabIndex)? callback;
+ 
 
   const AbaAfazeres({
     super.key,
@@ -23,16 +26,21 @@ class AbaAfazeres extends StatefulWidget {
 
 class _AbaAfazeres extends State<AbaAfazeres> {
 
+  // AfazerService service = AfazerService();
   late AfazerProvider store;
+  // late List<AfazeresEntity> _listaAfazeres;
+  // late int acumulador;
+  // late TesteEntity teste;
 
-  late int acumulador;
-  late TesteEntity teste;
+  // Future<List<AfazeresEntity>> obterLista() async{
+  //   return await service.buscar();
+  // }
 
-  void handleCallback() {
-    if (widget.callback != null) {
-      widget.callback!(1);
-    }
-  }
+  // void handleCallback() {
+  //   if (widget.callback != null) {
+  //     widget.callback!(1);
+  //   }
+  // }
 
   void handleAdicionar() {
     showDialog(
@@ -41,28 +49,34 @@ class _AbaAfazeres extends State<AbaAfazeres> {
         return SimpleDialog(
           contentPadding: const EdgeInsets.all(16),
           children:  [
-           NovoItemWidget(callback: (item) {
+           NovoItemWidget(callback: (item) {           
               store.listaAfazeres = [...store.listaAfazeres, item];
-                // _listaAfazeres.add(item);
-              // setState(() {
-              //   _listaAfazeres = _listaAfazeres;
-              // });
+              //  setState(() {
+                // _listaAfazeres = _listaAfazeres;
+              //  });
            },),
         ],);
       },
     );
   }
 
-  // void handleExcluir(int index) {
-  //   _listaAfazeres.removeAt(index);
-
-  //   setState(() {
-  //     _listaAfazeres = _listaAfazeres;
-  //   });
-  // }
+  void handleExcluir(int index) {
+    List<AfazeresEntity> lista = store.listaAfazeres;
+    lista.removeAt(index);
+    store.listaAfazeres = lista;
+    setState(() {
+      store.listaAfazeres;
+    });
+  }
 
   @override
   void initState() {
+    super.initState();
+    // obterLista().then((dados) => {
+    //   setState((){
+    //     _listaAfazeres = dados;
+    //   })
+    // });
     // _listaAfazeres = [
     //   AfazeresEntity(
     //     uuid: 'teste1',
@@ -79,8 +93,7 @@ class _AbaAfazeres extends State<AbaAfazeres> {
     //     isConcluido: true,
     //   ),
     // ];
-
-    super.initState();
+  
   }
 
   //  buscarDados() async {
@@ -110,7 +123,7 @@ class _AbaAfazeres extends State<AbaAfazeres> {
               return ItemWidget(
                 item: item,
                 onPressed: () {
-                  handleAdicionar();
+                  handleExcluir(index);
                 },
               );
             },

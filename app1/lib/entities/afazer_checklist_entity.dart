@@ -2,9 +2,12 @@ class AfazeresChecklistEntity {
   String titulo;
   bool isChecked;
 
-  AfazeresChecklistEntity({required this.titulo, required this.isChecked});
+  AfazeresChecklistEntity({
+    required this.titulo,
+    this.isChecked = false,
+  });
 
-  Map<String, dynamic> toJason() {
+  Map<String, dynamic> toJson() {
     return {
       'isChecked': isChecked,
       'titulo': titulo,
@@ -18,7 +21,7 @@ class AfazeresChecklistEntity {
     );
   }
 
-static List<AfazeresChecklistEntity> fromJsonList(List<dynamic>? json){
-  return json?.map((item) => AfazeresChecklistEntity.fromJson(item)).toList() ?? [];
-}
+  static List<AfazeresChecklistEntity> fromJsonList(List<dynamic>? json) {
+    return json?.map((item) => AfazeresChecklistEntity.fromJson(item)).toList() ?? [];
+  }
 }
