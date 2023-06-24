@@ -50,8 +50,8 @@ class AfazeresEntity{
     return json?.map((item) => AfazeresEntity.fromJson(item)).toList() ?? [];
   }
 
-  static List<Map<String, dynamic>> toJsonList(List<AfazeresEntity> itens){
-    List<Map<String, dynamic>> lista = itens.map((item) => item.toJson()).toList() ?? [];
-    return lista;
-  }
+  // static List<Map<String, dynamic>> toJsonList(List<AfazeresEntity> itens){
+  //   List<Map<String, dynamic>> lista = itens.map((item) => item.toJson()).toList();
+  //   return lista;
+  // }
 }
