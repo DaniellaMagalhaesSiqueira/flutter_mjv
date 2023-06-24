@@ -1,8 +1,8 @@
 import 'package:app1/components/body_component.dart';
+import 'package:app1/components/icon_button_component.dart';
 import 'package:app1/components/spacer_component.dart';
 import 'package:app1/pages/detalhe/components/detalhe_header.dart';
 import 'package:app1/providers/afazer_provider.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
@@ -35,6 +35,10 @@ class _DetalhePageState extends State<DetalhePage> {
     }
   }
 
+  void excluirConteudo(indexConteudo, indexItem){
+    store.excluirConteudoItem(indexConteudo, indexItem);
+  }
+
   @override
   Widget build(BuildContext context) {
     final argumentos = ModalRoute.of(context)!.settings.arguments as Argumentos;
@@ -50,24 +54,36 @@ class _DetalhePageState extends State<DetalhePage> {
             item: item,
           ),
           const SpacerComponent(),
-          Text(item.titulo, textAlign: TextAlign.left, style: const TextStyle(fontSize: 20)),
+          Text(item.titulo,
+              textAlign: TextAlign.left, style: const TextStyle(fontSize: 20)),
           SizedBox(
             height: MediaQuery.of(context).size.height - 450,
             child: ListView.builder(
-                itemCount: item.conteudos.length,
-                itemBuilder: (context, index) {
-                  final conteudo = item.conteudos[index];
-                  return CheckboxListTile(
-                    value: conteudo.isChecked, 
-                    title: Text(conteudo.titulo),
-                    controlAffinity: ListTileControlAffinity.leading,
-                    onChanged: (value) {
+              itemCount: item.conteudos.length,
+              itemBuilder: (context, index) {
+                final conteudo = item.conteudos[index];
+                return CheckboxListTile(
+                  value: conteudo.isChecked,
+                  title: Text(conteudo.titulo),
+                  controlAffinity: ListTileControlAffinity.leading,
+                  onChanged: (value) {
+                    setState(() {
+                      conteudo.isChecked = value!;
+                    });
+                  },
+                  secondary: IconButtonComponent(
+                    icon: Icons.delete,
+                    color: Colors.red,
+                    onPressed: () {
+                      int idxCont = item.conteudos.indexOf(conteudo);
                       setState(() {
-                        conteudo.isChecked = value!;
+                        excluirConteudo(idxCont,index);
                       });
-                    },);
-                },
-              ),
+                    },
+                  ),
+                );
+              },
+            ),
           ),
         ],
       ),
