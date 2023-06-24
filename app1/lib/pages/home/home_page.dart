@@ -1,6 +1,4 @@
-import 'package:app1/components/appBar_component.dart';
 import 'package:app1/components/body_component.dart';
-import 'package:app1/entities/afazer_entity.dart';
 import 'package:app1/pages/home/abas/aba_afazeres.dart';
 import 'package:app1/pages/home/abas/aba_perfil.dart';
 import 'package:flutter/material.dart';
@@ -20,20 +18,19 @@ class HomePage extends StatefulWidget {
 class _HomePage extends State<HomePage> {
   late AfazerProvider store;
   late int abaSelecionada;
+
   final List<BottomNavigationBarItem> _abas = [
     const BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-    const BottomNavigationBarItem(
-        icon: Icon(Icons.account_circle), label: 'Perfil'),
+    const BottomNavigationBarItem(icon: Icon(Icons.account_circle), label: 'Perfil'),
   ];
 
-  final List<Widget> _conteudo = [
+  final List<Widget> _conteudo = const [
     AbaAfazeres(
-      valorInicial: 0,
-      callback: (tabIndex) {
-        print(tabIndex);
-      },
+      // valorInicial: 0,
+      // callback: (tabIndex) {
+      // },
     ),
-    const AbaPerfil(),
+    AbaPerfil(),
   ];
 
   void handleTab(int tabIndex) {

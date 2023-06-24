@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 
 class AppBarComponent extends StatelessWidget implements PreferredSizeWidget {
@@ -22,6 +23,7 @@ class AppBarComponent extends StatelessWidget implements PreferredSizeWidget {
         CircleAvatar(
           child:  Text('D'),
         ),
+       
       ],
     );
   }

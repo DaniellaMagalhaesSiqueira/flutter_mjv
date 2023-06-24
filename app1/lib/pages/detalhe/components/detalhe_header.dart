@@ -14,16 +14,13 @@ class DetalheHeaderWidget extends StatelessWidget {
   });
 
   Widget makeImage() {
-    if(item.image != null){
+    if (item.image != null) {
       return Image.memory(
         PickerService().decodeBase64(item.image!),
         fit: BoxFit.cover,
       );
     }
-    return const Icon(
-      Icons.image_search,
-      size: 100,
-    );
+    return const Icon(Icons.image_search, size: 100);
   }
 
   @override
@@ -37,12 +34,11 @@ class DetalheHeaderWidget extends StatelessWidget {
           child: makeImage(),
         ),
         Positioned(
-          top: 0,
-          height: 0,
-          left: 0,
+          // top: 0,
+          // height: 0,
+          // left: 0,
           child: Container(
-            width: double.infinity,
-            height: double.maxFinite,
+            width: double.maxFinite,
             color: const Color.fromARGB(219, 255, 193, 7),
             padding: const EdgeInsets.symmetric(vertical: 16),
             child: Text(

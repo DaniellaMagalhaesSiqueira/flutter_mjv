@@ -61,7 +61,7 @@ class _NovoItemWidgetState extends State<NovoItemWidget> {
         if(isTarefasValidas == true){
           valid = true;
           for(final value in itens){
-            item.conteudos!.add(AfazeresChecklistEntity(titulo: value.text));
+            item.conteudos.add(AfazeresChecklistEntity(titulo: value.text));
           }
         }
       }else{

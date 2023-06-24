@@ -1,8 +1,5 @@
-import 'dart:convert';
-
 import 'package:app1/entities/afazer_entity.dart';
 import 'package:app1/services/afazer_service.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import '../pages/home/components/novo_item_widget.dart';

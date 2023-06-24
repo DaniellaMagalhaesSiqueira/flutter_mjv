@@ -6,13 +6,13 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class AbaAfazeres extends StatefulWidget {
-  final int valorInicial;
-  final void Function(int tabIndex)? callback;
+  // final int valorInicial;
+  // final void Function(int tabIndex)? callback;
 
   const AbaAfazeres({
     super.key,
-    required this.valorInicial,
-    this.callback,
+    // required this.valorInicial,
+    // this.callback,
   });
   @override
   State createState() => _AbaAfazeres();
@@ -36,17 +36,18 @@ class _AbaAfazeres extends State<AbaAfazeres> {
   // }
 
   void handleExcluir(int index) {
+    store.removerAfazer(index);
     // List<AfazeresEntity> lista = store.listaAfazeres;
     // lista.removeAt(index);
     // store.listaAfazeres = lista;
     // setState(() {
     //   store.listaAfazeres;
     // });
-    store.removerAfazer(index);
   }
 //navegação
   void onDetalhes(AfazeresEntity item, int index){
-    Navigator.pushNamed(context, AppRoutes.detalhe);
+
+    Navigator.pushNamed(context, AppRoutes.detalhe, arguments: Argumentos(index: index));
   }
 
   @override
@@ -82,6 +83,7 @@ class _AbaAfazeres extends State<AbaAfazeres> {
   @override
   Widget build(BuildContext context) {
     store = Provider.of<AfazerProvider>(context);
+    
     return ListView.builder(
       itemCount: store.listaAfazeres.length,
       itemBuilder: (context, index) {
