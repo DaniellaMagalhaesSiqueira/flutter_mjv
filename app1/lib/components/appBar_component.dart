@@ -1,11 +1,8 @@
-
-
 import 'package:flutter/material.dart';
 
-class AppBarComponent extends StatelessWidget implements PreferredSizeWidget{
-
+class AppBarComponent extends StatelessWidget implements PreferredSizeWidget {
   final String titulo;
-  
+
   const AppBarComponent({super.key, this.titulo = 'School'});
 
   static Size get size => const Size.fromHeight(kToolbarHeight);
@@ -16,13 +13,16 @@ class AppBarComponent extends StatelessWidget implements PreferredSizeWidget{
   // static Size size2(){
   //   return const Size.fromHeight(kToolbarHeight);
   // }
-  
-  
+
   @override
   Widget build(BuildContext context) {
     return AppBar(
-        title: Text(titulo));
+      title: Text(titulo),
+      actions: const [
+        CircleAvatar(
+          child:  Text('D'),
+        ),
+      ],
+    );
   }
-  
-
 }
