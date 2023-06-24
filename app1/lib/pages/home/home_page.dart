@@ -1,8 +1,12 @@
 import 'package:app1/components/appBar_component.dart';
+import 'package:app1/components/body_component.dart';
 import 'package:app1/entities/afazer_entity.dart';
 import 'package:app1/pages/home/abas/aba_afazeres.dart';
 import 'package:app1/pages/home/abas/aba_perfil.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../../providers/afazer_provider.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({
@@ -14,7 +18,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePage extends State<HomePage> {
-  
+  late AfazerProvider store;
   late int abaSelecionada;
   final List<BottomNavigationBarItem> _abas = [
     const BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
@@ -41,27 +45,30 @@ class _HomePage extends State<HomePage> {
   @override
   void initState() {
     abaSelecionada = 0;
-  
+    store = Provider.of<AfazerProvider>(context, listen: false);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     //variáveis privadas são iniciadas com '_'
-    return Scaffold(
-      appBar: const AppBarComponent(),
-      body: _conteudo.elementAt(abaSelecionada),
-      bottomNavigationBar: BottomNavigationBar(
+    return BodyComponent(
+      
+      margin: const EdgeInsets.all(0),
+      padding: const EdgeInsets.all(0),
+      bar: BottomNavigationBar(
         currentIndex: abaSelecionada,
         items: _abas,
         onTap: handleTab,
       ),
-      floatingActionButton: FloatingActionButton(
+      actionButton: FloatingActionButton(
         onPressed: () {
-          handleTab(1);
+          store.abrirModalCadastratro(context);
         },
         child: const Icon(Icons.add),
+        
       ),
+      child: _conteudo.elementAt(abaSelecionada),
     );
   }
 }

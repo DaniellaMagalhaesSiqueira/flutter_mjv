@@ -1,19 +1,13 @@
-import 'package:app1/components/spacer_component.dart';
+import 'package:app1/app_routs.dart';
+import 'package:app1/entities/afazer_entity.dart';
 import 'package:app1/pages/home/components/item_widget.dart';
-import 'package:app1/pages/home/components/novo_item_widget.dart';
 import 'package:app1/providers/afazer_provider.dart';
-import 'package:app1/services/afazer_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
-import '../../../entities/afazer_entity.dart';
-import '../../../entities/teste_entity.dart';
-
 
 class AbaAfazeres extends StatefulWidget {
   final int valorInicial;
   final void Function(int tabIndex)? callback;
- 
 
   const AbaAfazeres({
     super.key,
@@ -25,7 +19,6 @@ class AbaAfazeres extends StatefulWidget {
 }
 
 class _AbaAfazeres extends State<AbaAfazeres> {
-
   // AfazerService service = AfazerService();
   late AfazerProvider store;
   // late List<AfazeresEntity> _listaAfazeres;
@@ -42,31 +35,18 @@ class _AbaAfazeres extends State<AbaAfazeres> {
   //   }
   // }
 
-  void handleAdicionar() {
-    showDialog(
-      context: context,
-      builder: (context) {
-        return SimpleDialog(
-          contentPadding: const EdgeInsets.all(16),
-          children:  [
-           NovoItemWidget(callback: (item) {           
-              store.listaAfazeres = [...store.listaAfazeres, item];
-              //  setState(() {
-                // _listaAfazeres = _listaAfazeres;
-              //  });
-           },),
-        ],);
-      },
-    );
-  }
-
   void handleExcluir(int index) {
-    List<AfazeresEntity> lista = store.listaAfazeres;
-    lista.removeAt(index);
-    store.listaAfazeres = lista;
-    setState(() {
-      store.listaAfazeres;
-    });
+    // List<AfazeresEntity> lista = store.listaAfazeres;
+    // lista.removeAt(index);
+    // store.listaAfazeres = lista;
+    // setState(() {
+    //   store.listaAfazeres;
+    // });
+    store.removerAfazer(index);
+  }
+//navegação
+  void onDetalhes(AfazeresEntity item, int index){
+    Navigator.pushNamed(context, AppRoutes.detalhe);
   }
 
   @override
@@ -93,44 +73,34 @@ class _AbaAfazeres extends State<AbaAfazeres> {
     //     isConcluido: true,
     //   ),
     // ];
-  
   }
 
   //  buscarDados() async {
   //   await service.fectch();
   // }
 
-
-
-
   @override
   Widget build(BuildContext context) {
     store = Provider.of<AfazerProvider>(context);
-    return Column(
-      children: [
-        const SpacerComponent(),
-        ElevatedButton(
-          onPressed: handleAdicionar,
-          child: const Text('Adicionar'),
-        ),
-        SizedBox(
-          width: MediaQuery.of(context).size.width,
-          height: 400,
-          child: ListView.builder(
-            itemCount: store.listaAfazeres.length,
-            itemBuilder: (context, index) {
-              final item = store.listaAfazeres.elementAt(index);
-              return ItemWidget(
-                item: item,
-                onPressed: () {
-                  handleExcluir(index);
+    return ListView.builder(
+      itemCount: store.listaAfazeres.length,
+      itemBuilder: (context, index) {
+        final item = store.listaAfazeres.elementAt(index);
+        return Dismissible(
+                key: Key(item.uuid),
+                onDismissed: (direction) {
+                  if (direction == DismissDirection.startToEnd) {
+                    handleExcluir(index);
+                  }
                 },
+                child: ItemWidget(
+                  item: item,
+                  onPressed: () {
+                    onDetalhes(item, index);
+                  },
+                ),
               );
-            },
-          ),
-        ),
-        const SpacerComponent(),
-      ],
+      },
     );
   }
 }
