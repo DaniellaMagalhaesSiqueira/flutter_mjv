@@ -51,6 +51,7 @@ class AfazerProvider with ChangeNotifier{
 
   void atualizarItemAfazer(int idx, String image){
     listaAfazeres.elementAt(idx).image = image;
+    service.salvar(listaAfazeres);
     notifyListeners();
   }
   set listaAfazeres(List<AfazeresEntity> value){
@@ -59,4 +60,11 @@ class AfazerProvider with ChangeNotifier{
     notifyListeners();
   }
 
+  void excluirConteudoItem(int indexConteudo, int indexItem){
+    final item = listaAfazeres[indexItem];
+    item.conteudos.removeAt(indexConteudo);
+    listaAfazeres[indexItem] = item;
+    service.salvar(listaAfazeres);
+    notifyListeners();
+  }
 }
