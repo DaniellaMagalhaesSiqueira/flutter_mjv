@@ -1,3 +1,4 @@
+import 'package:app1/entities/afazer_checklist_entity.dart';
 import 'package:app1/entities/afazer_entity.dart';
 import 'package:app1/services/afazer_service.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +9,8 @@ class AfazerProvider with ChangeNotifier{
 
   final service = AfazerService();
 
+  AfazeresEntity? _selecionado;
+
   List<AfazeresEntity> _listaAfazeres = [];
 
 
@@ -15,6 +18,8 @@ class AfazerProvider with ChangeNotifier{
   AfazerProvider(){
     buscarAfazeres();
   }
+
+
 
   buscarAfazeres() async{
     listaAfazeres = await service.buscar();
@@ -49,14 +54,22 @@ class AfazerProvider with ChangeNotifier{
 
   List<AfazeresEntity> get listaAfazeres => _listaAfazeres;
 
-  void atualizarItemAfazer(int idx, String image){
-    listaAfazeres.elementAt(idx).image = image;
-    service.salvar(listaAfazeres);
-    notifyListeners();
-  }
+  AfazeresEntity? get selecionado => _selecionado;
+
   set listaAfazeres(List<AfazeresEntity> value){
     _listaAfazeres = value;
     service.salvar(_listaAfazeres);
+    notifyListeners();
+  }
+
+  set selecionado(AfazeresEntity? value){
+    _selecionado = value;
+    notifyListeners();
+  }
+
+ void atualizarItemAfazer(int idx){
+    // listaAfazeres.elementAt(idx).image = image;
+    service.salvar(listaAfazeres);
     notifyListeners();
   }
 
@@ -67,4 +80,12 @@ class AfazerProvider with ChangeNotifier{
     service.salvar(listaAfazeres);
     notifyListeners();
   }
+
+  void alterarConteudo(List<AfazeresChecklistEntity> conteudos, int indexItem){
+    listaAfazeres.elementAt(indexItem).conteudos = conteudos;
+    service.salvar(listaAfazeres);
+    notifyListeners();
+  }
+
+
 }

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:app1/app_routs.dart';
 import 'package:app1/entities/afazer_entity.dart';
 import 'package:app1/pages/home/components/item_widget.dart';
@@ -47,7 +49,9 @@ class _AbaAfazeres extends State<AbaAfazeres> {
 //navegação
   void onDetalhes(AfazeresEntity item, int index){
 
-    Navigator.pushNamed(context, AppRoutes.detalhe, arguments: Argumentos(index: index));
+    // Navigator.pushNamed(context, AppRoutes.detalhe, arguments: Argumentos(index: index));
+    store.selecionado = item;
+    Navigator.pushNamed(context, AppRoutes.detalhe, arguments: index);
   }
 
   @override
