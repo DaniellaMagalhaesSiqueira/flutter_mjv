@@ -13,7 +13,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   //página selecionada
   late int page;
-
+ 
   final List<BottomNavigationBarItem> _pages = [
     const BottomNavigationBarItem(icon: Icon(Icons.home, ), label: 'Início',),
     const BottomNavigationBarItem(
@@ -39,11 +39,10 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-
-    
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
+        leading: IconButton(icon: Icon(Icons.menu_outlined), onPressed: (){}),
         title: const Text(
           'Livro de Receitas',
           style: TextStyle(
