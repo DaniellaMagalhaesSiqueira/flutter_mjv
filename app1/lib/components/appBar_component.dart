@@ -19,6 +19,7 @@ class AppBarComponent extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       title: Text(titulo),
+      centerTitle: true,
       actions: const [
         CircleAvatar(
           child:  Text('D'),

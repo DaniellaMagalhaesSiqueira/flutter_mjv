@@ -3,6 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:projeto_final/pages/home_page.dart';
 
+import 'app_routes.dart';
+
 class App extends StatelessWidget {
   const App({Key? key});
 
@@ -17,7 +19,7 @@ class App extends StatelessWidget {
         iconTheme: IconThemeData(color: Colors.amber[800]),
         bottomNavigationBarTheme: BottomNavigationBarThemeData(selectedItemColor: Colors.amber[800], unselectedItemColor: Colors.amber[400],),
       ),
-      home: const HomePage(),
+      routes: AppRoutes.routes(),
     );
   }
 }
