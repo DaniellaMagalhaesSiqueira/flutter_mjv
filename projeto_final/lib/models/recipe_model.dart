@@ -8,6 +8,7 @@ class RecipeModel {
   String uuid;
   String title;
   List<String> ingredients;
+  String description;
   CategoryModel category;
 
   RecipeModel({
@@ -15,6 +16,7 @@ class RecipeModel {
     required this.title,
     required this.ingredients,
     required this.category,
+    required this.description,
   });
   
 }

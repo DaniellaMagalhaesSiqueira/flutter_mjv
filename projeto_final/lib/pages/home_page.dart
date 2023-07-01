@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'receitas_page.dart';
+import 'package:projeto_final/app_routes.dart';
 
-import 'form_page.dart';
+import '../components/menu_bar_component.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -13,51 +13,18 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   //página selecionada
   late int page;
- 
-  final List<BottomNavigationBarItem> _pages = [
-    const BottomNavigationBarItem(icon: Icon(Icons.home, ), label: 'Início',),
-    const BottomNavigationBarItem(
-        icon: Icon(Icons.emoji_flags), label: 'Teste',)
-  ];
-  //lista de páginas a serem carregadas conforme index
-  final List<Widget> _conteudos = [
-    const RecipesPage(),
-    const FormPage(),
-  ];
-
-  void handlePage(int pgIndex) {
-    setState(() {
-      page = pgIndex;
-    });
-  }
 
   @override
   void initState() {
-    page = 0;
     super.initState();
   }
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        leading: IconButton(icon: Icon(Icons.menu_outlined), onPressed: (){}),
-        title: const Text(
-          'Livro de Receitas',
-          style: TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        
-      ),
-      body: _conteudos.elementAt(page),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: page,
-        items: _pages,
-        onTap: handlePage,
-      ),
+      appBar: MenuBarComponent(),
+      body: Text('Body Content'),
     );
   }
 }
