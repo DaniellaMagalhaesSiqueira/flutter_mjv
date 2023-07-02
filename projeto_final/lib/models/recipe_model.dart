@@ -1,5 +1,7 @@
 
 
+import 'package:projeto_final/models/category_enum.dart';
+
 class RecipeModel {
   String uuid;
   String title;
@@ -9,6 +11,7 @@ class RecipeModel {
   bool isSugarFree;
   bool isVegetarian;
   bool isMilkFree;
+  CategoryEnum category;
   
 
   RecipeModel({
@@ -20,6 +23,7 @@ class RecipeModel {
     this.isSugarFree = false,
     this.isVegetarian = false,
     this.isMilkFree = false,
+    required this.category,
   });
   
 }
