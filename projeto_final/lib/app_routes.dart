@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
-import 'package:projeto_final/pages/form_page.dart';
-import 'package:projeto_final/pages/home_page.dart';
+import 'package:projeto_final/pages/form/form_page.dart';
+import 'package:projeto_final/pages/home/home_page.dart';
 
 class AppRoutes {
   static String initialRoute = '/';
