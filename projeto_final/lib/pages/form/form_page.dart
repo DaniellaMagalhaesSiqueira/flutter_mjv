@@ -1,11 +1,10 @@
-
 import 'package:flutter/material.dart';
-import 'package:projeto_final/components/elevated_button_component.dart';
 import 'package:projeto_final/components/menu_bar_component.dart';
 import 'package:projeto_final/components/spacer_component.dart';
 import 'package:projeto_final/models/category_enum.dart';
-
+import '../../models/recipe_model.dart';
 import 'form_components/text_component.dart';
+import 'package:uuid/uuid.dart';
 
 class FormPage extends StatefulWidget {
   const FormPage({super.key});
@@ -56,6 +55,25 @@ class _FormPageState extends State<FormPage> {
     });
   }
 
+
+  void handleSubmit(){
+    final isValido = _formKey.currentState!.validate();
+    if(isValido){
+    List<String> ingredients = _ingredientControllers.map((e) => e.text).toList();
+      final recipe = RecipeModel(
+        uuid: const Uuid().v4(),
+        title: _titleController.text,
+        ingredients: ingredients,
+        description: _discriptionController.text,
+        isVegan: _isVegan,
+        isSugarFree: _isSugarFree,
+        isVegetarian: _isVegetarian,
+        isMilkFree: _isMilkFree,
+        category: _category,
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final List<DropdownMenuItem<CategoryEnum>> _categories = CategoryEnum.values
@@ -75,8 +93,9 @@ class _FormPageState extends State<FormPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  const Text('Cadastrar Receita',
-                      style: TextStyle(fontSize: 17, fontWeight: FontWeight.w700)),
+                  const Text('Inserir Receita no Livro',
+                      style:
+                          TextStyle(fontSize: 17, fontWeight: FontWeight.w700)),
                   const SpacerComponent(),
                   TextFormField(
                     controller: _titleController,
@@ -96,26 +115,31 @@ class _FormPageState extends State<FormPage> {
                       controller: _ingredientControllers[i],
                       decoration:
                           InputDecoration(labelText: 'ingredinte ${i + 1}'),
-                      onTap: () {
-                        print('faz alguma coisa');
-                      },
+                      validator: (value) {
+                        if(value == null || value.isEmpty){
+                          return 'Digite um ingrediente ou o exclua da lista';
+                        }
+                      }
                     ),
                   const SpacerComponent(),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      ElevatedButtonComponent(
+                      ElevatedButton(
                         onPressed: () {
                           _addTextField();
-                          for (var controller in _ingredientControllers) {}
+                          // for (var controller in _ingredientControllers) {
+
+                          // }
                         },
+                        
                         child: const Text('+ adicione'),
                       ),
                       const SpacerComponent(
                         isHorizontal: true,
                         size: 30,
                       ),
-                      ElevatedButtonComponent(
+                      ElevatedButton(
                         child: const Text('- remova'),
                         onPressed: () {
                           _removeTextField();
@@ -132,6 +156,11 @@ class _FormPageState extends State<FormPage> {
                       label: Text('Modo de Fazer:'),
                       border: OutlineInputBorder(),
                     ),
+                    validator: (value) {
+                        if(value == null || value.isEmpty){
+                          return 'Digite o modo de preparo';
+                        }
+                      }
                   ),
                   const SpacerComponent(),
                   Row(
@@ -154,6 +183,10 @@ class _FormPageState extends State<FormPage> {
                         },
                       ),
                       const TextComponent(text: 'Vegetariana'),
+                    ],
+                  ),
+                  Row(
+                    children: [
                       Checkbox(
                         value: _isSugarFree,
                         onChanged: (value) {
@@ -176,19 +209,21 @@ class _FormPageState extends State<FormPage> {
                   ),
                   const SpacerComponent(),
                   DropdownButton<CategoryEnum>(
-                      items: _categories,
-                      value: _category,
-                      elevation: 10,
-                      borderRadius: const BorderRadius.all(Radius.circular(5)),
-                      focusColor: Colors.amber[200],
-                      onChanged: (value) {
-                        setState(() {
-                          _category = value!;
-                        });
-                      },
-                    ),
+                    items: _categories,
+                    value: _category,
+                    elevation: 10,
+                    borderRadius: const BorderRadius.all(Radius.circular(5)),
+                    onChanged: (value) {
+                      setState(() {
+                        _category = value!;
+                      });
+                    },
+                  ),
                   const SpacerComponent(),
-                  
+                  ElevatedButton(
+                    onPressed: handleSubmit,
+                    child: Text('Salvar'),
+                  ),
                 ],
               ),
             ),
