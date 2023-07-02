@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:projeto_final/app_routes.dart';
 
-import '../components/menu_bar_component.dart';
+import '../../components/menu_bar_component.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});

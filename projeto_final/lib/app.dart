@@ -1,7 +1,7 @@
 
 
 import 'package:flutter/material.dart';
-import 'package:projeto_final/pages/home_page.dart';
+import 'package:projeto_final/pages/home/home_page.dart';
 
 import 'app_routes.dart';
 
