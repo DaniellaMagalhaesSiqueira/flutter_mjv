@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:projeto_final/components/icon_button_component.dart';
 import 'package:projeto_final/components/menu_bar_component.dart';
 import 'package:projeto_final/components/spacer_component.dart';
-import 'package:projeto_final/models/category_enum.dart';
-import '../../models/recipe_model.dart';
+import 'package:projeto_final/entities/category_enum.dart';
+import 'package:projeto_final/pages/home/home_page.dart';
+import 'package:projeto_final/providers/recipe_provider.dart';
+import 'package:provider/provider.dart';
+import '../../entities/recipe_entity.dart';
+import '../../services/image_service.dart';
 import 'form_components/text_component.dart';
 import 'package:uuid/uuid.dart';
 
@@ -24,6 +29,11 @@ class _FormPageState extends State<FormPage> {
   late bool _isVegetarian = false;
   late bool _isMilkFree = false;
   late CategoryEnum _category;
+  late List<RecipeEntity> list;
+  late RecipeProvider store;
+  late String _image;
+  late RecipeEntity recipe;
+
 
   @override
   void initState() {
@@ -36,12 +46,14 @@ class _FormPageState extends State<FormPage> {
     _isVegetarian = false;
     _isMilkFree = false;
     _category = CategoryEnum.salads;
+    _image = '';
+    recipe = RecipeEntity(uuid: '0000', title: 'title', ingredients: ['ingredients'], description: 'description', category: CategoryEnum.drinks, image: '');
+
   }
 
   void _addTextField() {
     setState(() {
       _ingredientController++;
-      print(_ingredientController);
       _ingredientControllers.add(TextEditingController());
     });
   }
@@ -56,11 +68,11 @@ class _FormPageState extends State<FormPage> {
   }
 
 
-  void handleSubmit(){
+  void handleSubmit(BuildContext context){
     final isValido = _formKey.currentState!.validate();
     if(isValido){
     List<String> ingredients = _ingredientControllers.map((e) => e.text).toList();
-      final recipe = RecipeModel(
+      final recipe = RecipeEntity(
         uuid: const Uuid().v4(),
         title: _titleController.text,
         ingredients: ingredients,
@@ -70,12 +82,32 @@ class _FormPageState extends State<FormPage> {
         isVegetarian: _isVegetarian,
         isMilkFree: _isMilkFree,
         category: _category,
+        image: _image,
       );
+      setState(() {
+        list.add(recipe);
+        store.listRecipes = list;
+      });
+      
+       Navigator.push(
+    context,
+    MaterialPageRoute(builder: (context) => const HomePage()));
     }
   }
 
+  Widget putImage() {
+    if (recipe.image != null || recipe.image != '') {
+      return Image.memory(
+        ImageService().decodeBase64(recipe.image!),
+        fit: BoxFit.cover,
+      );
+    }
+    return const Icon(Icons.image_search, size: 100);
+  }
   @override
   Widget build(BuildContext context) {
+    store = Provider.of<RecipeProvider>(context);
+    list = store.listRecipes;
     final List<DropdownMenuItem<CategoryEnum>> _categories = CategoryEnum.values
         .map((e) => DropdownMenuItem<CategoryEnum>(
               value: e,
@@ -86,6 +118,7 @@ class _FormPageState extends State<FormPage> {
     return Scaffold(
         appBar: MenuBarComponent(),
         body: SingleChildScrollView(
+          padding: const EdgeInsets.only(top:15, bottom: 20),
           child: Form(
             key: _formKey,
             child: Container(
@@ -220,8 +253,26 @@ class _FormPageState extends State<FormPage> {
                     },
                   ),
                   const SpacerComponent(),
+                                
+                  Stack(children: [
+                     IconButtonComponent(
+                    icon: Icons.image_search,
+                    onPressed: (){},
+                  ),
+                    Container(
+                      width: 300,
+                      height: 300,
+                      color: Colors.red[100],
+                      child: putImage(),
+                    ),
+                  ],),
+                 
+                  const SpacerComponent(),
+
                   ElevatedButton(
-                    onPressed: handleSubmit,
+                    onPressed: (){
+                      handleSubmit(context);
+                    },
                     child: Text('Salvar'),
                   ),
                 ],
