@@ -1,9 +1,5 @@
-
-import 'dart:js_util';
-
 import 'package:app1/styles/palette_dark.dart';
 import 'package:app1/styles/pallete_light.dart';
-import 'package:app1/styles/pallete_style.dart';
 import 'package:flutter/material.dart';
 
 class MyTheme {
@@ -16,7 +12,7 @@ class MyTheme {
   static final ThemeData claro = ThemeData.light().copyWith(
     colorScheme: ThemeData.light().colorScheme.copyWith(
       primary: _light.primary,
-      secondary: _light.secondary,
+      secondary: _light.accent,
       background: _light.background,
       error: _light.error,
     ),

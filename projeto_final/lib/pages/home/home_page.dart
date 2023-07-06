@@ -5,6 +5,7 @@ import 'package:projeto_final/entities/category_enum.dart';
 import 'package:projeto_final/providers/recipe_provider.dart';
 import 'package:provider/provider.dart';
 
+import '../../app_routes.dart';
 import '../../components/menu_bar_component.dart';
 import '../../entities/recipe_entity.dart';
 
@@ -16,6 +17,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  late RecipeProvider store;
   late List<RecipeEntity> list;
   final recipes = [
     RecipeEntity(
@@ -49,13 +51,20 @@ class _HomePageState extends State<HomePage> {
     super.initState();
   }
 
+
+   void selecionar(int idx){
+    RecipeEntity selected = list.elementAt(idx);
+    store.recipeSelected = selected;
+    // Navigator.pushReplacementNamed(context, AppRoutes.formRoute, arguments: selected);
+  }
+
   @override
   Widget build(BuildContext context) {
-    final store = Provider.of<RecipeProvider>(context);
+    store = Provider.of<RecipeProvider>(context);
     list = store.listRecipes;
 
     return Scaffold(
-      appBar: MenuBarComponent(),
+      appBar: MenuBarComponent(isHome: true,),
       body: ListView.builder(
         itemCount: list.length,
         itemBuilder: ((context, index) {
@@ -70,6 +79,13 @@ class _HomePageState extends State<HomePage> {
                 const SpacerComponent(
                   isHorizontal: true,
                   isFull: true,
+                ),
+                IconButtonComponent(
+                  icon: Icons.edit,
+                  onPressed: (){
+                     selecionar(index);
+                     Navigator.pushReplacementNamed(context, AppRoutes.formRoute);
+                  },
                 ),
                 IconButtonComponent(
                   icon: Icons.my_library_books,
