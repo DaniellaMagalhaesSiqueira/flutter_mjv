@@ -58,7 +58,7 @@ class MenuBarComponent extends StatelessWidget implements PreferredSizeWidget {
               icon: Icons.arrow_circle_left_outlined,
               onPressed: () {
                 final store = Provider.of<RecipeProvider>(context, listen: false);
-                store.recipeSelected = null;
+                store.clearSelections();
                 navegar(context, AppRoutes.initialRoute);
               },
             ),

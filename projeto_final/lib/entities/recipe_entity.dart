@@ -14,7 +14,7 @@ class RecipeEntity {
   bool isVegetarian;
   bool isMilkFree;
   CategoryEnum category;
-  String? image;
+  String image;
   
 
   RecipeEntity({
@@ -27,7 +27,7 @@ class RecipeEntity {
     this.isVegetarian = false,
     this.isMilkFree = false,
     required this.category,
-    this.image,
+    this.image = '',
   });
 
   factory RecipeEntity.fromJson(Map<String, dynamic> json){
