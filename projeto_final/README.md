@@ -16,7 +16,7 @@ Dependências instaladas com o comando flutter pub add <nomedadependencia>
 
 ## Criação de navegação
 
-A navegação é feita pelo componente MenuBarComponent que recebe apenas um parâmetro boleano que indica se ele é a página inicial.
+A navegação é feita pelo componente MenuBarComponent que recebe apenas um parâmetro boleano que indica se ele é a página inicial. Foi feita a classe appRoutes e um provider para as rotas também. O acesso foi feito utilizando o Navigator.pushReplacementNamed, pois a página será substituída ao invés de incrementada para dar mais controle à navegação.
 Optei por utilizar provider para passar uma receita selecionada para outra página. Como o provider se mantinha ao retornar à página inicial foi necessário o tratamento da variável recipeSelected transformando-a em null ao retornar para a home page.
 '''dart
 IconButtonComponent(
@@ -40,5 +40,13 @@ Também vi que existe o Consumer, mas por falta de tempo para experimentar outra
 
 ## Providers
 
+Foram criados providers para o auxílio ao armazenamento com os notifiers e para transporte de objetos ou variáveis entre as páginas navegáveis facilitando a manutenção do aplicativo caso esse venha a precisar de novas páginas e incrementos.
 
 ## Imagem
+
+A princípio pensei em desenvolver como o professor fez usando a imagem que altera logo na tela, mas optei por deixar todas as funções de manipulação da imagem dentro do componente BoxImageComponent criando para isso uma referência à imagem no provider para melhor manipular na página de formulário. 
+A dificuldade foi administrar quando entrava na página de formulário e não atualizava a foto, foi importante tratar quando a foto voltava sem um store.image preenchido, pois salvava uma imagem vazia quando não alterava.
+
+## Temas e Estilização
+
+Foi criada a classe abstrata PaletteStyle para que um conjunto de atributos possa ser reproduzidos nas classes de temas. Ao invés do tema dark e light tradicional optou-se pelo uso dos temas em determinados momentos ao editar e ver detalhes baseando as cores de uma receita em sua categoria.

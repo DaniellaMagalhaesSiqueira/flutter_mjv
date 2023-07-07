@@ -52,7 +52,7 @@ class _HomePageState extends State<HomePage> {
   }
 
 
-   void selecionar(int idx){
+   void select(int idx){
     RecipeEntity selected = list.elementAt(idx);
     store.recipeSelected = selected;
     // Navigator.pushReplacementNamed(context, AppRoutes.formRoute, arguments: selected);
@@ -83,13 +83,16 @@ class _HomePageState extends State<HomePage> {
                 IconButtonComponent(
                   icon: Icons.edit,
                   onPressed: (){
-                     selecionar(index);
+                     select(index);
                      Navigator.pushReplacementNamed(context, AppRoutes.formRoute);
                   },
                 ),
                 IconButtonComponent(
                   icon: Icons.my_library_books,
-                  onPressed: (){},
+                  onPressed: (){
+                    select(index);
+                    Navigator.pushReplacementNamed(context, AppRoutes.detailRoute);
+                  },
                 ),
               ],
             ),
