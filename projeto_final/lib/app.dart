@@ -1,25 +1,36 @@
 
 
 import 'package:flutter/material.dart';
-import 'package:projeto_final/pages/home/home_page.dart';
+import 'package:projeto_final/providers/theme_provider.dart';
+import 'package:projeto_final/styles/theme_styles.dart';
+import 'package:provider/provider.dart';
 
 import 'app_routes.dart';
 
-class App extends StatelessWidget {
+class App extends StatefulWidget {
   const App({Key? key});
 
   @override
+  State<App> createState() => _AppState();
+}
+
+class _AppState extends State<App> {
+
+  late ThemeProvider configTheme;
+
+
+  @override
   Widget build(BuildContext context) {
+
+
+    configTheme = Provider.of<ThemeProvider>(context);
+
     return MaterialApp(
-      // title: 'Livro de Receitas',
-      theme: ThemeData(
-        primaryColor: Colors.amber[600],
-        appBarTheme: AppBarTheme(color: Colors.amber[600]),
-        primaryIconTheme: IconThemeData(color: Colors.amber[800]),
-        iconTheme: IconThemeData(color: Colors.amber[800]),
-        bottomNavigationBarTheme: BottomNavigationBarThemeData(selectedItemColor: Colors.amber[800], unselectedItemColor: Colors.amber[400],),
-      ),
+      title: 'Livro de Receitas',
       routes: AppRoutes.routes(),
+      themeMode: configTheme.theme,
+      theme: ThemeStyles.light,
+      darkTheme: ThemeStyles.dark,
     );
   }
 }

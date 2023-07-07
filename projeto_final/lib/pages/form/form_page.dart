@@ -138,16 +138,6 @@ class _FormPageState extends State<FormPage> {
       store.clearSelections();
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => const HomePage()));
-          String x = recipeChanged.uuid;
-    print("Uuid: $x");
-          x = recipeChanged.title;
-    print("title: $x");
-          x = recipeChanged.description;
-    print("description: $x");
-          x = CategoryStatic.getString(recipeChanged.category);
-    print("category: $x");
-          String? y = recipeChanged.image;
-    print("image: $y");
     }
   }
 
@@ -202,9 +192,6 @@ class _FormPageState extends State<FormPage> {
                       ElevatedButton(
                         onPressed: () {
                           _addTextField();
-                          // for (var controller in _ingredientControllers) {
-
-                          // }
                         },
                         child: const Text('+ adicione'),
                       ),
@@ -280,7 +267,10 @@ class _FormPageState extends State<FormPage> {
                     ],
                   ),
                   const SpacerComponent(),
-                  DropdownButton<CategoryEnum>(
+                 Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                     DropdownButton<CategoryEnum>(
                     items: categories,
                     value: _category,
                     elevation: 10,
@@ -291,15 +281,10 @@ class _FormPageState extends State<FormPage> {
                       });
                     },
                   ),
-                  const SpacerComponent(),
-                  // Container(
-                  //   height: 150,
-                  //   width: 250,
-                  //   child: Card(
-                  //     child: putImage(),
-                  //   ),
-                  // ),
+                  const SpacerComponent(isHorizontal: true, size: 30),
                   BoxImageConponent(isEdit: isEdit, image: isEdit ? _image : '',),
+                  ],
+                 ),
                   const SpacerComponent(),
                   ElevatedButton(
                     onPressed: () {

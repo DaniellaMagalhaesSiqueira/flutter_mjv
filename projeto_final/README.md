@@ -49,4 +49,4 @@ A dificuldade foi administrar quando entrava na página de formulário e não at
 
 ## Temas e Estilização
 
-Foi criada a classe abstrata PaletteStyle para que um conjunto de atributos possa ser reproduzidos nas classes de temas. Ao invés do tema dark e light tradicional optou-se pelo uso dos temas em determinados momentos ao editar e ver detalhes baseando as cores de uma receita em sua categoria.
+Foi criada a classe abstrata PaletteStyle para que um conjunto de atributos possa ser reproduzidos nas classes de temas. A principio foi pensado em colocar temas relacionados às restrições ou categorias, mas não havia tempo hábil para implementação correta.
