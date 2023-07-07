@@ -9,6 +9,7 @@ class RecipeProvider with ChangeNotifier {
   List<RecipeEntity> _listRecipes = [];
   RecipeEntity? _recipeSelected;
   String? _image = '';
+  List<RecipeEntity> _filter = [];
   // int? _index;
 
   RecipeProvider() {
@@ -17,6 +18,7 @@ class RecipeProvider with ChangeNotifier {
 
   searchRecipes() async {
     listRecipes = await service.search();
+    filter = listRecipes;
   }
 
   set listRecipes(List<RecipeEntity> list) {
@@ -30,6 +32,11 @@ class RecipeProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  set filter(List<RecipeEntity> filter){
+    _filter = filter;
+    notifyListeners();
+  }
+
   List<RecipeEntity> get listRecipes => _listRecipes;
 
   RecipeEntity? get recipeSelected {
@@ -38,6 +45,7 @@ class RecipeProvider with ChangeNotifier {
 
   String? get image => _image;
 
+  List<RecipeEntity> get filter => _filter;
   set recipeSelected(RecipeEntity? recipe){
     _recipeSelected = recipe;
     notifyListeners();
@@ -47,6 +55,6 @@ class RecipeProvider with ChangeNotifier {
     _image = '';
     _recipeSelected = null;
   }
-
  
+
 }

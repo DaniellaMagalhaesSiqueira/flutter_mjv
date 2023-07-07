@@ -9,4 +9,5 @@ abstract class PaletteStyle {
   late Color secondary;
   late Color accent;
   late Color backgroud;
+  late Color primaryDark;
 }

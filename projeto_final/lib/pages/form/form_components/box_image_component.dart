@@ -60,14 +60,14 @@ class _BoxImageConponentState extends State<BoxImageConponent> {
             child: putImage(),
           ),
         ),
-        Positioned(
-          top: 0,
-          right: 0,
-          left: 0,
-          child: Container(
-            child: const Text('Título'),
-          ),
-        ),
+        // Positioned(
+        //   top: 0,
+        //   right: 0,
+        //   left: 0,
+        //   child: Container(
+        //     child: const Text('Título'),
+        //   ),
+        // ),
         Positioned(
           bottom: 18,
           right: 18,

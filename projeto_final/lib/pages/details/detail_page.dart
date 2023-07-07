@@ -18,12 +18,12 @@ class DetailPage extends StatefulWidget {
 }
 
 class _DetailPageState extends State<DetailPage> {
-  final List<Text> restrictions = const [
-    Text('Vegetariana'),
-    Text('Vegana'),
-    Text('Zero Açúcar'),
-    Text('Zero Lactose'),
-  ];
+  // final List<Text> restrictions = const [
+  //   Text('Vegetariana'),
+  //   Text('Vegana'),
+  //   Text('Zero Açúcar'),
+  //   Text('Zero Lactose'),
+  // ];
   late RecipeEntity _recipe;
 
   @override
@@ -88,7 +88,7 @@ class _DetailPageState extends State<DetailPage> {
                   ),
                 ),
                 const Divider(),
-                const RestricionsConponent(),
+                RestricionsConponent(recipe: _recipe,),
                 const Divider(),
                 Text(
                   CategoryStatic.getString(_recipe.category),
