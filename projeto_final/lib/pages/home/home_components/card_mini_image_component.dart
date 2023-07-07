@@ -18,8 +18,6 @@ class CardMiniImageComponent extends StatefulWidget {
 late RecipeProvider store;
 late String _image;
 
-
-
 class _CardMiniImageComponentState extends State<CardMiniImageComponent> {
 
 @override
@@ -29,10 +27,10 @@ class _CardMiniImageComponentState extends State<CardMiniImageComponent> {
     super.initState();
   }
 
-  Widget putImage() {
-    if (_image != '') {
+  Widget putImage(image) {
+    if (image != '') {
       return Image.memory(
-        ImageService().decodeBase64(_image),
+        ImageService().decodeBase64(image),
         fit: BoxFit.cover,
         width: 50,
         height: 50,
@@ -45,10 +43,9 @@ class _CardMiniImageComponentState extends State<CardMiniImageComponent> {
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
-      borderRadius: BorderRadius.circular(60),
+      borderRadius: BorderRadius.circular(30),
       child: Card(
-        
-        child: putImage(),
+        child: putImage(widget.image),
       ),
     );
   }
